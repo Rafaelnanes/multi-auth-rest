@@ -1,0 +1,2 @@
+1 - Fazer a autorização de token funcionar
+2 - Descobrir como fazer para depois do login ter o token.
