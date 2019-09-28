@@ -1,6 +1,8 @@
 package rbn.com.multi.auth.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import rbn.com.multi.auth.ApplicationConstants;
 
-//@Configuration
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class GeneralSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
