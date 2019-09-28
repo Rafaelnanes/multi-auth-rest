@@ -1,7 +1,9 @@
 package rbn.com.multi.auth.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -28,7 +30,12 @@ public class OAuth2SecurityConfig {
 					.antMatcher("/api/v2/**")//
 					.authorizeRequests()//
 					.anyRequest()//
-					.authenticated();
+					.authenticated()//
+					.and()//
+					.antMatcher("/api/v2/print-token")//
+					.authorizeRequests()//
+					.anyRequest()//
+					.permitAll();
 		}
 
 	}
@@ -36,13 +43,17 @@ public class OAuth2SecurityConfig {
 	@EnableAuthorizationServer
 	protected static class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
+		@Autowired
+		private PasswordEncoder passwordEncoder;
+
 		@Override
 		public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+			String encode = passwordEncoder.encode("123456");
 			clients.inMemory()//
 					.withClient("cliente-app-id")//
-					.secret("123456")//
-					.redirectUris("http://localhost:8080/any-redirect-uri")//
-					.authorizedGrantTypes("authorization_code")//
+					.secret(encode)//
+					.redirectUris("http://localhost:8089")//
+					.authorizedGrantTypes("authorization_code", "password")//
 					.scopes("scope.read")//
 					.autoApprove(true)//
 					.resourceIds(RESOURCE_ID);

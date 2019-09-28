@@ -1,5 +1,7 @@
 package rbn.com.multi.auth.web;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/")
 public class ApiController {
+
+	protected final Log logger = LogFactory.getLog(ApiController.class);
 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/role/admin")
