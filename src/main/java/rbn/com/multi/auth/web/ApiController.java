@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/")
 public class ApiController {
-	
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/role/admin")
 	public String admin() {
 		return "You are the Admin";
 	}
-	
+
 	@PreAuthorize("hasRole('CUSTOMER')")
 	@GetMapping("/role/customer")
 	public String customer() {

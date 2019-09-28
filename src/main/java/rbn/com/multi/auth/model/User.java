@@ -2,7 +2,6 @@ package rbn.com.multi.auth.model;
 
 import java.util.List;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class User implements UserDetails {
@@ -13,7 +12,7 @@ public class User implements UserDetails {
 
 	private String password;
 
-	private List<GrantedAuthority> authorities;
+	private List<Role> authorities;
 
 	@Override
 	public String getUsername() {
@@ -22,7 +21,7 @@ public class User implements UserDetails {
 
 	public void setUsername(String username) {
 		this.username = username;
-	} 
+	}
 
 	@Override
 	public String getPassword() {
@@ -34,11 +33,11 @@ public class User implements UserDetails {
 	}
 
 	@Override
-	public List<GrantedAuthority> getAuthorities() {
+	public List<Role> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(List<GrantedAuthority> authorities) {
+	public void setAuthorities(List<Role> authorities) {
 		this.authorities = authorities;
 	}
 
