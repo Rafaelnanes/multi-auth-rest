@@ -34,8 +34,7 @@ public class GeneralSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()//
 				.usernameParameter("user")//
 				.passwordParameter("pass")//
-				.loginProcessingUrl("/api/form")//
-				.defaultSuccessUrl("/login-success", true);
+				.loginProcessingUrl("/api/form");
 		http//
 				.authorizeRequests()//
 				.antMatchers("/api/unauthorized")//
