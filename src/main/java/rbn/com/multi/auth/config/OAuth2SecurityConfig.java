@@ -53,7 +53,7 @@ public class OAuth2SecurityConfig {
 					.withClient("cliente-app-id")//
 					.secret(encode)//
 					.redirectUris("http://localhost:8089")//
-					.authorizedGrantTypes("authorization_code", "password")//
+					.authorizedGrantTypes("authorization_code", "password", "implicit")//
 					.scopes("scope.read")//
 					.autoApprove(true)//
 					.resourceIds(RESOURCE_ID);
