@@ -16,26 +16,16 @@ public class ApiOAuth2Controller {
 		return principal;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(value = "#oauth2.hasScope('read-admin')")
 	@GetMapping("/role/admin")
 	public String admin() {
-		return "You are the Admin";
+		return "You are reading as Admin";
 	}
 
-	@PreAuthorize("hasRole('CUSTOMER')")
+	@PreAuthorize(value = "#oauth2.hasScope('read')")
 	@GetMapping("/role/customer")
 	public String customer() {
-		return "You are the customer";
-	}
-
-	@GetMapping("/unauthorized")
-	public String unauthorized() {
-		return "Success unauthorized access";
-	}
-
-	@GetMapping("/basic")
-	public String basic() {
-		return "Success Basic Authentication access";
+		return "You are reading as Customer";
 	}
 
 }

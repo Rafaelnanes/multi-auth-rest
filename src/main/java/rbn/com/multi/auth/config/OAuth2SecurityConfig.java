@@ -30,12 +30,7 @@ public class OAuth2SecurityConfig {
 					.antMatcher("/api/v2/**")//
 					.authorizeRequests()//
 					.anyRequest()//
-					.authenticated()//
-					.and()//
-					.antMatcher("/api/v2/print-token")//
-					.authorizeRequests()//
-					.anyRequest()//
-					.permitAll();
+					.authenticated();
 		}
 
 	}
@@ -54,7 +49,14 @@ public class OAuth2SecurityConfig {
 					.secret(encode)//
 					.redirectUris("http://localhost:8089")//
 					.authorizedGrantTypes("authorization_code", "password", "implicit")//
-					.scopes("scope.read")//
+					.scopes("read")//
+					.autoApprove(true)//
+					.and()//
+					.withClient("cliente-app-id-admin")//
+					.secret(encode)//
+					.redirectUris("http://localhost:8089")//
+					.authorizedGrantTypes("authorization_code", "password", "implicit")//
+					.scopes("read-admin")//
 					.autoApprove(true)//
 					.resourceIds(RESOURCE_ID);
 		}

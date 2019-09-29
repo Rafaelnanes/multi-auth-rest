@@ -1,2 +1,7 @@
-1 - Fazer a autorização de token funcionar
-2 - Descobrir como fazer para depois do login ter o token.
+1 - Fazer a autorização de token funcionar "oauth/token"
+	Olhar a classe AuthorizationServerEndpointsConfigurer 
+		Method -> getDefaultTokenGranters
+			O AuthenticationManager está null. Se implementar um esse problema acaba
+2 - Adicionar Cors
+3 - Adicionar validação de escopos
+4 - Refresh tokens
