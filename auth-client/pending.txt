@@ -1,3 +1,6 @@
+# Add form login 
 # Apply Rest query language
 # Check out about claims for token
-# Adde token expiration after one request
+# Add token expiration after one request
+# Add @PreAuthorize using method
+# httpSecurity.csrf().enable()
