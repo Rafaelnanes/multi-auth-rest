@@ -3,5 +3,10 @@
 		Method -> getDefaultTokenGranters
 			O AuthenticationManager está null. Se implementar um esse problema acaba
 2 - Adicionar Cors
-3 - Adicionar validação de escopos
 4 - Refresh tokens
+5 - Criar um grant type customizado
+
+
+https://www.baeldung.com/spring-security-oauth2-enable-resource-server-vs-enable-oauth2-sso
+https://medium.com/@supunbhagya/spring-oauth2-resourceserver-oauth2-security-authorization-code-grant-flow-9eb72fd5d27d
+https://dzone.com/articles/spring-boot-security-json-web-tokenjwt-hello-world
