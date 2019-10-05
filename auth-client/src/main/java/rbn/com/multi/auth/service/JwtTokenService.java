@@ -1,6 +1,7 @@
 package rbn.com.multi.auth.service;
 
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,11 +52,20 @@ public class JwtTokenService implements Serializable {
 		return doGenerateToken(claims, userDetails.getUsername());
 	}
 
+	public String generateTokenAsBase64(UserDetails userDetails) {
+		String tokenGenerated = generateToken(userDetails);
+		return Base64.getEncoder().encodeToString(tokenGenerated.getBytes());
+	}
+
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
 
-		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+		return Jwts.builder().setSubject(subject)
 				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
+				.signWith(SignatureAlgorithm.HS512, secret).compact();
+
+//		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+//				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+//				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {

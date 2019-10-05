@@ -1,2 +1,3 @@
-# Addfly way
-# Remove old stuffs
+# Apply Rest query language
+# Check out about claims for token
+# Adde token expiration after one request

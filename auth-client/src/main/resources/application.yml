@@ -1,8 +1,10 @@
+#logging.level.org.springframework: DEBUG
+
 server.port: 8080
 
-jwt.secret: rbn
+jwt.secret: anySecretKey
 
-# configurações do datasource do spring
+# configuraï¿½ï¿½es do datasource do spring
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/multi-auth-client
