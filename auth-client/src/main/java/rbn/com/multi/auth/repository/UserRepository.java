@@ -3,11 +3,11 @@ package rbn.com.multi.auth.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import rbn.com.multi.auth.model.DAOUser;
+import rbn.com.multi.auth.model.entity.User;
 
 @Repository
-public interface UserDao extends CrudRepository<DAOUser, Integer> {
+public interface UserRepository extends CrudRepository<User, Integer> {
 
-	DAOUser findByUsername(String username);
+	User findByUsername(String username);
 
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import rbn.com.multi.auth.service.JwtTokenService;
 import rbn.com.multi.auth.service.JwtUserDetailsService;
 
 @Component
@@ -25,7 +26,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	private JwtUserDetailsService jwtUserDetailsService;
 
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	private JwtTokenService jwtTokenUtil;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -42,9 +43,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			try {
 				username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 			} catch (IllegalArgumentException e) {
-				System.out.println("Unable to get JWT Token");
+				logger.info("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {
-				System.out.println("JWT Token has expired");
+				logger.info("JWT Token has expired");
 			}
 		} else {
 			logger.warn("JWT Token does not begin with Bearer String");
