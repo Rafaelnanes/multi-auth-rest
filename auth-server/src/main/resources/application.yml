@@ -1,1 +1,9 @@
-server.port: 8091
+#logging.level.org.springframework: DEBUG
+
+server.port: 8090
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: first-client
+#      client-secret: 123

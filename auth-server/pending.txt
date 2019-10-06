@@ -1,0 +1,13 @@
+#password-flow
+#resource-owner flow
+#TokenStore in database
+#validatin by resourceId, I still dont know why it could be important
+#create new grant type to convert jwt token from client server
+#enable form authentication
+
+#https://docs.spring.io/spring-security-oauth2-boot/docs/current-SNAPSHOT/reference/htmlsingle/#oauth2-boot-authorization-server-spring-security-oauth2-resource-server-jwk
+# https://www.baeldung.com/spring-security-oauth-jwt
+
+#guides
+https://docs.spring.io/spring-security-oauth2-boot/docs/current-SNAPSHOT/reference/htmlsingle/#oauth2-boot-authorization-server-minimal
+https://projects.spring.io/spring-security-oauth/docs/oauth2.html

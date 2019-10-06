@@ -1,1 +1,14 @@
-server.port: 8090
+logging.level.org.springframework: DEBUG
+
+server.port: 8089
+
+spring:
+  security:
+    oauth2:
+      client:
+        clientId: client-app-1
+        clientSecret: 123
+      resource:
+        tokenInfoUri: http://localhost:8090/oauth2/check_token
+        userInfoUri: http://localhost:8090/oauth2/userinfo
+        token-info-uri: http://localhost:8090/oauth2/introspect
