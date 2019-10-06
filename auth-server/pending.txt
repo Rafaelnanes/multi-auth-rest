@@ -1,3 +1,5 @@
+#add authentication for key-set endpoints
+#refresh token
 #password-flow
 #resource-owner flow
 #TokenStore in database

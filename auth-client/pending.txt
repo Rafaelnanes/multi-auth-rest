@@ -1,3 +1,7 @@
+JwkDefinitionSource
+
+#Cycle reference
+# multiple calls for detailsService in one request
 # See this https://dev.to/keysh/spring-security-with-jwt-3j76
 # Apply Rest query language
 # Check out about claims for token
