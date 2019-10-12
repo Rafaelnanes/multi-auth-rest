@@ -20,16 +20,16 @@ public class InternalClient implements ClientDetails {
 
 	private Set<String> scope;
 
-	private List<String> grantedAuthorities;
+	private List<String> authorities;
 
 	private Set<String> authorizedGrantTypes;
 
-	public InternalClient(String clientId, String clientSecret, Set<String> scope, List<String> grantedAuthorities,
+	public InternalClient(String clientId, String clientSecret, Set<String> scope, List<String> authorities,
 			Set<String> authorizedGrantTypes) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.scope = scope;
-		this.grantedAuthorities = grantedAuthorities;
+		this.authorities = authorities;
 		this.authorizedGrantTypes = authorizedGrantTypes;
 	}
 
@@ -75,7 +75,7 @@ public class InternalClient implements ClientDetails {
 
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
-		return grantedAuthorities.stream().map(x -> new SimpleGrantedAuthority(x)).collect(Collectors.toList());
+		return authorities.stream().map(x -> new SimpleGrantedAuthority(x)).collect(Collectors.toList());
 	}
 
 	@Override
