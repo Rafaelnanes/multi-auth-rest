@@ -2,8 +2,11 @@
 
 server.port: 8090
 
-#security:
-#  oauth2:
-#    client:
-#      client-id: first-client
-#      client-secret: 123
+security:
+  oauth2:
+    client:
+      client-id: client-app-1
+      client-secret: 123
+  authorization:
+    check-token-access: permitAll()
+    token-key-access: permitAll()

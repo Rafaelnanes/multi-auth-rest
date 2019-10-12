@@ -1,7 +1,6 @@
 package rbn.com.multi.auth.service;
 
 import java.io.Serializable;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,23 +48,16 @@ public class JwtTokenService implements Serializable {
 
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
-	}
+		claims.put("sub", userDetails.getUsername());
+		claims.put("admin", "admin".equals(userDetails.getUsername()));
+		claims.put("roles", userDetails.getAuthorities().stream().map(x -> x.getAuthority())
+				.reduce((x, y) -> String.format("%s,%s", x, y)).get());
 
-	public String generateTokenAsBase64(UserDetails userDetails) {
-		String tokenGenerated = generateToken(userDetails);
-		return Base64.getEncoder().encodeToString(tokenGenerated.getBytes());
-	}
-
-	private String doGenerateToken(Map<String, Object> claims, String subject) {
-
-		return Jwts.builder().setSubject(subject)
-				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-				.signWith(SignatureAlgorithm.HS512, secret).compact();
-
-//		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-//				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-//				.signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
+		return Jwts.builder().setClaims(claims)//
+				.setSubject(userDetails.getUsername())//
+				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))//
+				.signWith(SignatureAlgorithm.HS512, secret)//
+				.compact();
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
