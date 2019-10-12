@@ -30,8 +30,9 @@ public class InternalJwkAccessTokenConverter extends JwtAccessTokenConverter {
 	protected String encode(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		String content;
 		try {
+			Map<String, ?> convertAccessToken = getAccessTokenConverter().convertAccessToken(accessToken, authentication);
 			content = this.objectMapper
-					.formatMap(getAccessTokenConverter().convertAccessToken(accessToken, authentication));
+					.formatMap(convertAccessToken);
 		} catch (Exception ex) {
 			throw new IllegalStateException("Cannot convert access token to JSON", ex);
 		}
