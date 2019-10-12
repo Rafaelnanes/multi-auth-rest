@@ -9,8 +9,9 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import rbn.com.multi.auth.service.model.InternalClient;
 
 @Service
-@Order(0)
 @Primary
 public class ClientUserService implements ClientDetailsService {
 
@@ -27,13 +27,23 @@ public class ClientUserService implements ClientDetailsService {
 
 	private List<InternalClient> clients;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@PostConstruct
 	public void init() {
 		clients = new ArrayList<>();
 		HashSet<String> scope = new HashSet<String>(Arrays.asList("read", "write"));
+		HashSet<String> scopeReadToken = new HashSet<String>(Arrays.asList("read", "write", "read-token"));
 		HashSet<String> grantTypes = new HashSet<String>(Arrays.asList("client_credentials", "authorization_code"));
-		clients.add(new InternalClient("client-app-1", "123", scope, Arrays.asList("client"), grantTypes));
-		clients.add(new InternalClient("resource-app-1", "123", scope, Arrays.asList("resource"), grantTypes));
+//		String password = passwordEncoder.encode("123");
+		String password = "123";
+
+		List<String> authoritiesClient = Arrays.asList("client");
+		clients.add(new InternalClient("client-app-1", password, scope, authoritiesClient, grantTypes));
+
+		List<String> authoritiesResource = Arrays.asList("resource");
+		clients.add(new InternalClient("resource-app-1", password, scopeReadToken, authoritiesResource, grantTypes));
 	}
 
 	@Override

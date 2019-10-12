@@ -1,4 +1,5 @@
-#add authentication for key-set endpoints
+#try to remove @Primary from ClientUserService
+#add encryption for password
 #refresh token
 #password-flow
 #resource-owner flow
