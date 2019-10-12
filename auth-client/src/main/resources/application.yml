@@ -6,8 +6,8 @@ jwt.secret: anySecretKey
 
 spring:
   datasource:
-    #url: jdbc:h2:tcp://localhost/~/multi-auth-client
-    url: jdbc:h2:tcp://127.0.1.1:9092/~/Dev/Programs/H2Database/h2/databases/multi-auth-client
+    url: jdbc:h2:tcp://localhost/~/multi-auth-client
+    #url: jdbc:h2:tcp://127.0.1.1:9092/~/Dev/Programs/H2Database/h2/databases/multi-auth-client
     #url: jdbc:h2:tcp://localhost/~/Dev/Programs/H2Database/h2/databases/multi-auth-client
     username: sa
     password: 
