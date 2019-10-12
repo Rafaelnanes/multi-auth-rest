@@ -35,15 +35,19 @@ public class ClientUserService implements ClientDetailsService {
 		clients = new ArrayList<>();
 		HashSet<String> scope = new HashSet<String>(Arrays.asList("read", "write"));
 		HashSet<String> scopeReadToken = new HashSet<String>(Arrays.asList("read", "write", "read-token"));
-		HashSet<String> grantTypes = new HashSet<String>(Arrays.asList("client_credentials", "authorization_code"));
-//		String password = passwordEncoder.encode("123");
-		String password = "123";
+		HashSet<String> grantTypesResourceApp = new HashSet<String>(
+				Arrays.asList("client_credentials", "authorization_code"));
+		HashSet<String> grantTypesClientApp = new HashSet<String>(
+				Arrays.asList("client_credentials", "authorization_code", "client-jwt-custom"));
+		String password = passwordEncoder.encode("123");
+//		String password = "123";
 
 		List<String> authoritiesClient = Arrays.asList("client");
-		clients.add(new InternalClient("client-app-1", password, scope, authoritiesClient, grantTypes));
+		clients.add(new InternalClient("client-app-1", password, scope, authoritiesClient, grantTypesClientApp));
 
 		List<String> authoritiesResource = Arrays.asList("resource");
-		clients.add(new InternalClient("resource-app-1", password, scopeReadToken, authoritiesResource, grantTypes));
+		clients.add(new InternalClient("resource-app-1", password, scopeReadToken, authoritiesResource,
+				grantTypesResourceApp));
 	}
 
 	@Override

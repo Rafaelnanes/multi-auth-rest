@@ -1,5 +1,6 @@
 package rbn.com.multi.auth.config;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,21 +13,26 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AutoConfigureAfter(AuthorizationServerConfig.class)
 public class SecurityConfig extends ResourceServerConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception {
-
 		httpSecurity.csrf().disable()//
 				.authorizeRequests()//
 				.antMatchers("/key-set/**")//
-				.authenticated();
-//				.access("#oauth2.hasScope('read-token')");//
+				.permitAll();
 	}
 
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+//	@Override
+//	@Bean
+//	public AuthenticationManager authenticationManagerBean() throws Exception {
+//		return super.authenticationManagerBean();
+//	}
 
 }

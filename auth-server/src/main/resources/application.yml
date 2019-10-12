@@ -2,6 +2,8 @@ logging.level.org.springframework: DEBUG
 
 server.port: 8090
 
+jwt.client.secret: anySecretKey
+
 security:
   authorization:
     check-token-access: permitAll()

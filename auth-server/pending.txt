@@ -1,3 +1,4 @@
+# TokenEnhancerChain for encrypt and sign
 #try to remove @Primary from ClientUserService
 #add encryption for password
 #refresh token
