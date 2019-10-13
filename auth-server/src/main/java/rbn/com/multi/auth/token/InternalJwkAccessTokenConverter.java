@@ -1,4 +1,4 @@
-package rbn.com.multi.auth.service;
+package rbn.com.multi.auth.token;
 
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
@@ -19,10 +19,10 @@ public class InternalJwkAccessTokenConverter extends JwtAccessTokenConverter {
 	private JsonParser objectMapper = JsonParserFactory.create();
 	final RsaSigner signer;
 
-	public InternalJwkAccessTokenConverter(Map<String, String> customHeaders, KeyPair keyPair) {
+	public InternalJwkAccessTokenConverter(Map<String, String> customHeaders, KeyPair signKeyPair) {
 		super();
-		super.setKeyPair(keyPair);
-		this.signer = new RsaSigner((RSAPrivateKey) keyPair.getPrivate());
+		super.setKeyPair(signKeyPair);
+		this.signer = new RsaSigner((RSAPrivateKey) signKeyPair.getPrivate());
 		this.customHeaders = customHeaders;
 	}
 
@@ -30,9 +30,9 @@ public class InternalJwkAccessTokenConverter extends JwtAccessTokenConverter {
 	protected String encode(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 		String content;
 		try {
-			Map<String, ?> convertAccessToken = getAccessTokenConverter().convertAccessToken(accessToken, authentication);
-			content = this.objectMapper
-					.formatMap(convertAccessToken);
+			Map<String, ?> convertAccessToken = getAccessTokenConverter().convertAccessToken(accessToken,
+					authentication);
+			content = this.objectMapper.formatMap(convertAccessToken);
 		} catch (Exception ex) {
 			throw new IllegalStateException("Cannot convert access token to JSON", ex);
 		}

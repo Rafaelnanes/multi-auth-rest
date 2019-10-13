@@ -1,4 +1,4 @@
-package rbn.com.multi.auth.service.web;
+package rbn.com.multi.auth.web;
 
 import java.util.Map;
 
@@ -16,7 +16,6 @@ public class JwkSetRestController {
 	@Autowired
 	private JWKSet jwkSet;
 
-//	@PreAuthorize(value = "#oauth2.hasScope('read-token')")
 	@GetMapping("/.well-known/auth-server-sign-jwt.json")
 	public Map<String, Object> keys() {
 		return this.jwkSet.toJSONObject();
