@@ -1,4 +1,4 @@
-package rbn.com.multi.auth.service.model;
+package rbn.com.multi.auth.model;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,13 +24,19 @@ public class InternalClient implements ClientDetails {
 
 	private Set<String> authorizedGrantTypes;
 
+	private Set<String> resourceIds;
+
+	private Set<String> redirectUri;
+
 	public InternalClient(String clientId, String clientSecret, Set<String> scope, List<String> authorities,
-			Set<String> authorizedGrantTypes) {
+			Set<String> authorizedGrantTypes, Set<String> resourceIds, Set<String> redirectUri) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.scope = scope;
 		this.authorities = authorities;
 		this.authorizedGrantTypes = authorizedGrantTypes;
+		this.resourceIds = resourceIds;
+		this.redirectUri = redirectUri;
 	}
 
 	@Override
@@ -40,7 +46,7 @@ public class InternalClient implements ClientDetails {
 
 	@Override
 	public Set<String> getResourceIds() {
-		return null;
+		return resourceIds;
 	}
 
 	@Override
@@ -55,7 +61,7 @@ public class InternalClient implements ClientDetails {
 
 	@Override
 	public boolean isScoped() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -70,7 +76,7 @@ public class InternalClient implements ClientDetails {
 
 	@Override
 	public Set<String> getRegisteredRedirectUri() {
-		return null;
+		return redirectUri;
 	}
 
 	@Override
@@ -80,17 +86,17 @@ public class InternalClient implements ClientDetails {
 
 	@Override
 	public Integer getAccessTokenValiditySeconds() {
-		return null;
+		return 120;
 	}
 
 	@Override
 	public Integer getRefreshTokenValiditySeconds() {
-		return null;
+		return 120;
 	}
 
 	@Override
 	public boolean isAutoApprove(String scope) {
-		return false;
+		return true;
 	}
 
 	@Override
