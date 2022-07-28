@@ -1,0 +1,796 @@
+{
+	"info": {
+		"_postman_id": "0f6af006-79cd-44a5-ac09-24aa199fb195",
+		"name": "multi-auth-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4492075"
+	},
+	"item": [
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "authentications",
+					"item": [
+						{
+							"name": "/auth/token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"123\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/auth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"auth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/form",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8080/login-form",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login-form"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "yJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyYWZhZWwiLCJleHAiOjE1NzAyODc2OTh9.rEOGGr44kOou6vO3abGK_nrgobVE9FIFXRvJGVKAKOL4MJZ2efHWRFqliLAIPiq_FBF4Caf9GuHQA_wMarKJBA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/role/admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU3MDI5MzEyM30.JhkUKcqBgSO1C1HlugUMjSAuZAMHkjg0xn7ixR7FnHx24bACyegopsevpxsr3vZy7f8DfhimvYeMmHPOlsgJoQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/role/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/role/visitor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/role/visitor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"role",
+								"visitor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "server",
+			"item": [
+				{
+					"name": "flows",
+					"item": [
+						{
+							"name": "Client Credentials Flow",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Password Flow",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "write",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Client-Jwt-Custom - Flow",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client-jwt-custom",
+											"type": "text"
+										},
+										{
+											"key": "scope",
+											"value": "read",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImFkbWluIjp0cnVlLCJleHAiOjE1NzA5MDUxNTd9.TvGBpj7G_wuvZmzQxj5pGQ-vLZfm-q2caUO2IcGg4_qosn5-mqhzLP4eXovtnMlYvEfj2j8cf4uZSbD_PL1H7A",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authorization Code Flow",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8090/oauth/authorize?grant_type=authorization_code&response_type=code&client_id={{clientApp1-id}}&state=1234",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"oauth",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "client_id",
+											"value": "{{clientApp1-id}}"
+										},
+										{
+											"key": "state",
+											"value": "1234"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authorization Code Flow - Token",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8090/oauth/authorize?grant_type=authorization_code&response_type=code&client_id={{clientApp1-id}}&state=1234&code=8vZ3hV",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"oauth",
+										"authorize"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "authorization_code"
+										},
+										{
+											"key": "response_type",
+											"value": "code"
+										},
+										{
+											"key": "client_id",
+											"value": "{{clientApp1-id}}"
+										},
+										{
+											"key": "state",
+											"value": "1234"
+										},
+										{
+											"key": "code",
+											"value": "8vZ3hV"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Form Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"login"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{clientApp1-id}}",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "{{clientApp1-secret}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "controllers",
+					"item": [
+						{
+							"name": "auth-server-sign-jwt.json",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiJzaWduLWtleS1pZCIsImFsZyI6IlJTMjU2In0.SW4gUlNBIHdlIHRydXN0IQ.X_iWObJjpj62ewebuGiw-AcbjeJi8n0vGAl1pP0zgSODXjA9rBH1_Haa355klYtNPx60qAp8nd8kjIwsXeegUzRGopnfhc5tf7kdTgRW3gKZ26aC8ixhZKQKlXl_PcfOiqDwpP4fgzkVnwLZg6ElqlWVtVnhQdBJMgZJ4iJzAM3LVaIlwdwyJQwmDJV5PIBpfEfWZMIhxuDNKbnL7LY7la9Oiqks_mcOpBiFgsYFtQgHhUjA-RGDaU6B59wdNPtcpvKdPBbRAITRgV-1Y6yUlws81KF35Yj0FIeRYE7x-ISatlT_ljr5dZhUeAverdOQh-DSP_jRWUGJLJnYzsvYMg",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/key-set/.well-known/auth-server-sign-jwt.json",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"key-set",
+										".well-known",
+										"auth-server-sign-jwt.json"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/client/read-only",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiJzaWduLWtleS1pZCIsImFsZyI6IlJTMjU2In0.SW4gUlNBIHdlIHRydXN0IQ.X_iWObJjpj62ewebuGiw-AcbjeJi8n0vGAl1pP0zgSODXjA9rBH1_Haa355klYtNPx60qAp8nd8kjIwsXeegUzRGopnfhc5tf7kdTgRW3gKZ26aC8ixhZKQKlXl_PcfOiqDwpP4fgzkVnwLZg6ElqlWVtVnhQdBJMgZJ4iJzAM3LVaIlwdwyJQwmDJV5PIBpfEfWZMIhxuDNKbnL7LY7la9Oiqks_mcOpBiFgsYFtQgHhUjA-RGDaU6B59wdNPtcpvKdPBbRAITRgV-1Y6yUlws81KF35Yj0FIeRYE7x-ISatlT_ljr5dZhUeAverdOQh-DSP_jRWUGJLJnYzsvYMg",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/client/read-only",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"client",
+										"read-only"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/client/write-only",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{token}}",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "token",
+											"value": "eyJraWQiOiJzaWduLWtleS1pZCIsImFsZyI6IlJTMjU2In0.SW4gUlNBIHdlIHRydXN0IQ.X_iWObJjpj62ewebuGiw-AcbjeJi8n0vGAl1pP0zgSODXjA9rBH1_Haa355klYtNPx60qAp8nd8kjIwsXeegUzRGopnfhc5tf7kdTgRW3gKZ26aC8ixhZKQKlXl_PcfOiqDwpP4fgzkVnwLZg6ElqlWVtVnhQdBJMgZJ4iJzAM3LVaIlwdwyJQwmDJV5PIBpfEfWZMIhxuDNKbnL7LY7la9Oiqks_mcOpBiFgsYFtQgHhUjA-RGDaU6B59wdNPtcpvKdPBbRAITRgV-1Y6yUlws81KF35Yj0FIeRYE7x-ISatlT_ljr5dZhUeAverdOQh-DSP_jRWUGJLJnYzsvYMg",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8090/client/write-only",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"path": [
+										"client",
+										"write-only"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "check-token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{clientApp1-secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{clientApp1-id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJzaWduLWtleS1pZCIsImFsZyI6IlJTMjU2In0.SW4gUlNBIHdlIHRydXN0IQ.X_iWObJjpj62ewebuGiw-AcbjeJi8n0vGAl1pP0zgSODXjA9rBH1_Haa355klYtNPx60qAp8nd8kjIwsXeegUzRGopnfhc5tf7kdTgRW3gKZ26aC8ixhZKQKlXl_PcfOiqDwpP4fgzkVnwLZg6ElqlWVtVnhQdBJMgZJ4iJzAM3LVaIlwdwyJQwmDJV5PIBpfEfWZMIhxuDNKbnL7LY7la9Oiqks_mcOpBiFgsYFtQgHhUjA-RGDaU6B59wdNPtcpvKdPBbRAITRgV-1Y6yUlws81KF35Yj0FIeRYE7x-ISatlT_ljr5dZhUeAverdOQh-DSP_jRWUGJLJnYzsvYMg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8090/oauth/check_token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"oauth",
+								"check_token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "resource",
+			"item": [
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InNpZ24ta2V5LWlkIn0.eyJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiZXhwIjoxNTcwOTkwMzYyLCJhdXRob3JpdGllcyI6WyJjbGllbnQiXSwianRpIjoiM2M5ZDAxNjgtMTMyOS00YWRmLWI4MTktM2IwNzUyY2I4MzVlIiwiY2xpZW50X2lkIjoiY2xpZW50LWFwcC0xIn0.Y_VHrrUotlpZ_lFbrQrQiwGwCAGMDh-TiHW7IhxSMllTiLgYo0Ugrn8WR7eoX_bvP1sNusrBhElpwychG-080_Da2KhnY_ciEOBHWINkwIGxLapEtz2Rhq1lRS8Zr-Ay-hZN2QhjTh9GJ0aTncsJU66yyVW0EeMFXSXeA5aIfrm552bDPCiyXHCUzBNjEoK35oZKqA9v0TpbspdvY-vN1ellSdDDbvGwlEPdUX_f3sfyc3EbpMrIM8V0Cn4aHcoTg6IS0cJmHSKFaZW3PJRVsTLI-fNEhdOTpuHZJ2oLJ-tycEqCEUgNElNgONWO0NHqDru7ZSEOAwIRmgaabor78w",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "cc63dadf-c6f4-4f9c-a40b-9dd48ee0a824",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8089/api/v1/user/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "any",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8089/api/v1/any",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8089",
+							"path": [
+								"api",
+								"v1",
+								"any"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

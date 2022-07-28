@@ -4,6 +4,8 @@ target/
 .settings
 .project
 .classpath
+.idea/*
+*.iml
 
 # Log file
 *.log
